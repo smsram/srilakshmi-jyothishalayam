@@ -9,7 +9,10 @@ export default function Footer() {
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none sri-chakra-bg"></div>
       
       <div className="max-w-6xl mx-auto px-gutter flex flex-col items-center text-center gap-6 relative z-10">
-        <h2 className="font-serif text-3xl text-primary font-bold">శ్రీ లక్ష్మీదేవి జ్యోతిషాలయం</h2>
+        {/* Clean English Brand Conversion */}
+        <h2 className="font-serif text-2xl md:text-3xl text-primary font-bold tracking-wide uppercase">
+          Sri Lakshmi Devi Jyothishalayam
+        </h2>
         
         <div className="flex flex-wrap justify-center gap-8 mt-2">
           <Link href="/privacy" className="font-medium text-on-surface-variant hover:text-primary transition-colors">

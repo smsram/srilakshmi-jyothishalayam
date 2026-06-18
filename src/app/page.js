@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { CONTACT_INFO } from "../utils/constants";
@@ -33,7 +34,7 @@ export default function Home() {
           }
         });
       },
-      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px" } 
     );
 
     sectionsRef.current.forEach((section) => {
@@ -65,39 +66,44 @@ export default function Home() {
   ];
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col bg-background">
       
       {/* 1. Hero Dynamic Banner Layer */}
-      <section className="relative w-full min-h-[82vh] flex flex-col items-center justify-center text-center overflow-hidden border-b border-outline-variant/20">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1574246604907-db69e30ddb97?auto=format&fit=crop&q=80')] bg-cover bg-center md:bg-[center_top_-2rem] scale-105 animate-[pulse_16s_infinite_alternate]"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-background"></div>
+      <section className="relative w-full min-h-[85vh] flex flex-col items-center justify-center text-center overflow-hidden border-b border-outline-variant/20">
+        <div className="absolute inset-0 bg-[url('/home-section.jpg')] bg-cover bg-center md:bg-[center_top_-2rem] scale-105 animate-[pulse_16s_infinite_alternate]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/65 to-background"></div>
         
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6 px-gutter pt-12 animate-[fadeIn_0.8s_ease-out]">
-          <div className="w-20 h-20 rounded-full bg-surface/10 flex items-center justify-center border border-secondary/40 shadow-xl backdrop-blur-sm">
-            <span className="material-symbols-outlined text-4xl text-secondary">auto_awesome</span>
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center px-gutter pt-12 animate-[fadeIn_0.8s_ease-out]">
+          <div className="w-16 h-16 rounded-full bg-surface/10 flex items-center justify-center border border-secondary/40 shadow-2xl backdrop-blur-sm mb-6">
+            <span className="material-symbols-outlined text-3xl text-secondary" style={{fontVariationSettings: "'FILL' 1"}}>auto_awesome</span>
           </div>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-tight tracking-tight">
-            Guiding Your Life with Ancient Vedic Wisdom & Divine Grace.
+
+          <span className="font-serif text-sm md:text-base text-secondary font-bold tracking-[0.25em] uppercase mb-3 drop-shadow-sm">
+            Sri Lakshmi Devi Jyothishalayam
+          </span>
+
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-[1.15] tracking-tight max-w-3xl">
+            Guiding Your Life with Ancient Vedic Wisdom & Divine Grace
           </h1>
-          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mt-2 font-medium">
+
+          <p className="text-base md:text-lg lg:text-xl text-surface-variant/90 max-w-2xl mt-6 font-medium leading-relaxed">
             Accurate Jathakam, Marriage Matching, and Vastu Consultations by Expert South Indian Astrologers.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mt-6">
-            <a href={CONTACT_INFO.whatsappUrl} className="flex-1 bg-[#25D366] text-white font-bold py-4 px-6 rounded-lg flex justify-center items-center gap-3 hover:bg-[#1DA851] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <CustomWhatsAppIcon className="w-6 h-6" />
+          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mt-10">
+            <a href={CONTACT_INFO.whatsappUrl} className="flex-1 bg-[#25D366] text-white font-bold py-4 px-6 rounded-xl flex justify-center items-center gap-3 hover:bg-[#1DA851] hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group shadow-md">
+              <CustomWhatsAppIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
               WhatsApp Chat
             </a>
-            <a href={`tel:${CONTACT_INFO.phoneRaw}`} className="flex-1 bg-primary text-on-primary font-bold py-4 px-6 rounded-lg flex justify-center items-center gap-2 hover:bg-primary/90 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-outline/30">
+            <a href={`tel:${CONTACT_INFO.phoneRaw}`} className="flex-1 bg-primary text-on-primary font-bold py-4 px-6 rounded-xl flex justify-center items-center gap-2.5 hover:bg-primary/90 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 border border-outline/20 shadow-md">
               <span className="material-symbols-outlined text-xl">call</span>
-              Call Guruji
+              Call Now
             </a>
           </div>
         </div>
       </section>
 
       {/* 2. Trust Counters Section */}
-      {/* FIX: Moved ref and reveal classes to an inner content wrapper div to keep section backgrounds fluidly loaded */}
       <section className="px-gutter py-16 bg-surface-container-low border-b border-outline-variant/20">
         <div ref={addToRefs} className="reveal-on-scroll grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <div className="bg-surface rounded-2xl p-8 border border-secondary/20 shadow-sm flex flex-col items-center text-center hover:shadow-lg transition-all duration-300">
@@ -148,13 +154,13 @@ export default function Home() {
                 <h4 className="font-serif font-bold text-2xl text-on-surface mb-2 leading-tight">{service.title}</h4>
                 <p className="text-on-surface-variant text-sm mb-6 leading-relaxed flex-grow">{service.desc}</p>
                 
-                <span className="text-[#25D366] text-xs flex items-center gap-1.5 font-bold mt-auto group/btn">
-                  <CustomWhatsAppIcon className="w-4 h-4 transition-transform duration-300 group-hover/btn:scale-110" />
-                  <span className="relative">
-                    Ask on WhatsApp
-                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#25D366] group-hover:w-full transition-all duration-300"></span>
+                <span className="text-secondary text-xs flex items-center gap-1.5 font-bold mt-auto group/btn">
+                  <span className="material-symbols-outlined text-[16px]">visibility</span>
+                  <span className="relative text-on-surface group-hover/btn:text-secondary transition-colors">
+                    Check in Services
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-secondary group-hover/btn:w-full transition-all duration-300"></span>
                   </span>
-                  <ArrowRightSVG className="w-3 h-3 transform translate-x-0 opacity-0 group-hover:translate-x-1 group-hover:opacity-100 transition-all duration-300" />
+                  <ArrowRightSVG className="w-3 h-3 text-secondary transform translate-x-0 opacity-0 group-hover/btn:translate-x-1 group-hover/btn:opacity-100 transition-all duration-300" />
                 </span>
               </Link>
             ))}
@@ -190,27 +196,27 @@ export default function Home() {
       </section>
 
       {/* 5. Glimpses Image Gallery Layer */}
-      {/* FIX: Kept the section container styling normal, and placed the 'reveal-on-scroll' parameters cleanly onto an inner div to isolate text and grid imagery together smoothly */}
       <section className="px-gutter py-16 bg-primary/[0.01] border-t border-outline-variant/25">
         <div ref={addToRefs} className="reveal-on-scroll max-w-6xl mx-auto text-center">
           <h2 className="font-serif text-3xl md:text-4xl text-primary font-bold mb-4 tracking-tight">Glimpses of Our Ashram</h2>
           <p className="text-on-surface-variant max-w-xl mx-auto mb-12 text-sm md:text-base">A serene location built to host continuous Vedic study blocks, fire altars, and individual readings.</p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-sm group">
-              <img src="https://images.unsplash.com/photo-1604114258380-4965825a075a?auto=format&fit=crop&q=80" alt="Vedic Architecture" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+            <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-sm group bg-surface-variant/30">
+              <img src="/image1.jpg" alt="Vedic Architecture" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
               <p className="absolute bottom-6 left-6 text-white font-serif font-bold text-xl">Vedic Architecture</p>
             </div>
-            <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-sm group">
-              <img src="https://images.unsplash.com/photo-1582610285985-a42d9193f2fd?auto=format&fit=crop&q=80" alt="Parihara Poojas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+            <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-sm group bg-surface-variant/30">
+              <img src="/image2.jpg" alt="Parihara Poojas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
               <p className="absolute bottom-6 left-6 text-white font-serif font-bold text-xl">Parihara Poojas</p>
             </div>
-            <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-sm group">
-              <img src="https://images.unsplash.com/photo-1590650516494-0c8e4a4dd67e?auto=format&fit=crop&q=80" alt="Sacred Offerings" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+            <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-sm group bg-surface-variant/30">
+              {/* FIX: Updated the source extension to .png and localized the tag to match your Rasi Phalalu image chart */}
+              <img src="/image3.jpg" alt="Rasi Phalalu Transits" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-              <p className="absolute bottom-6 left-6 text-white font-serif font-bold text-xl">Sacred Offerings</p>
+              <p className="absolute bottom-6 left-6 text-white font-serif font-bold text-xl">Rasi Phalalu</p>
             </div>
           </div>
         </div>

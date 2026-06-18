@@ -57,8 +57,8 @@ export default function ServicesPage() {
   const serviceCategories = [
     {
       id: "jathakam",
-      title: "Jathakam Analysis (జాతక పరిశీలన)",
-      teluguTitle: "జ్యోతిష్యం",
+      title: "Jathakam Analysis",
+      englishTag: "Astrology",
       summary: "Comprehensive natal chart mappings calculated to illuminate life paths, planetary dasha blocks, and future transitions.",
       items: [
         { name: "Life Predictions", desc: "Detailed breakdown of health, wealth, family longevity, and key milestones based on classical planetary positions." },
@@ -71,8 +71,8 @@ export default function ServicesPage() {
     },
     {
       id: "marriage",
-      title: "Marriage & Relationships (వివాహ పొంతన)",
-      teluguTitle: "సంబంధాలు",
+      title: "Marriage & Relationships",
+      englishTag: "Compatibility",
       summary: "Traditional compatibility analyses performed to smooth relationships and ensure marital longevity.",
       items: [
         { name: "Ashtakoota Milan Matching", desc: "Rigorous 36-point Guna check examining mental temperament, health, and mutual spiritual alignment." },
@@ -85,8 +85,8 @@ export default function ServicesPage() {
     },
     {
       id: "vastu",
-      title: "Vastu Shastra (వాస్తు శాస్త్రం)",
-      teluguTitle: "వాస్తు",
+      title: "Vastu Shastra",
+      englishTag: "Vastu",
       summary: "Structural geometric evaluations mapping architectural matrices to natural elemental laws.",
       items: [
         { name: "Residential Vastu Evaluation", desc: "Room-by-room checking for individual apartments, villas, and kitchens to attract peaceful energy." },
@@ -99,8 +99,8 @@ export default function ServicesPage() {
     },
     {
       id: "muhurtham",
-      title: "Muhurtham Fixing (శుభ ముహూర్తాలు)",
-      teluguTitle: "ముహూర్తం",
+      title: "Muhurtham Fixing",
+      englishTag: "Timings",
       summary: "Mathematical identification of auspicious planetary windows to guarantee success for key milestones.",
       items: [
         { name: "Vivah (Marriage) Muhurtham", desc: "Fixing cosmic windows free of structural doshas to protect the couple's bond." },
@@ -113,8 +113,8 @@ export default function ServicesPage() {
     },
     {
       id: "career",
-      title: "Career & Financial Stability (ఉద్యోగ, ఆర్థికం)",
-      teluguTitle: "జీవనోపాధి",
+      title: "Career & Financial Stability",
+      englishTag: "Prosperity",
       summary: "Stars mapping designed to maximize financial opportunities and identify peak professional paths.",
       items: [
         { name: "Job Promotion Alignments", desc: "Pinpointing transit periods highly favorable for career shifts or competitive promotions." },
@@ -127,8 +127,8 @@ export default function ServicesPage() {
     },
     {
       id: "remedies",
-      title: "Remedies & Energized Gems (పరిహారాలు)",
-      teluguTitle: "రక్షణ",
+      title: "Remedies & Energized Gems",
+      englishTag: "Protection",
       summary: "Spiritual shields engineered to clear energetic hurdles and pacify malefic planetary transits.",
       items: [
         { name: "Gemstone Selection (Ratnalu)", desc: "Prescribing authentic, pure gemstones chosen exclusively to fortify weaker benefic planets." },
@@ -147,15 +147,18 @@ export default function ServicesPage() {
       {/* Page Title Section */}
       <section className="relative py-16 bg-surface-container-low border-b border-outline-variant/30 flex flex-col items-center justify-center text-center animate-[fadeIn_0.5s_ease-out]">
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none sri-chakra-bg"></div>
-        <div className="relative z-10 px-gutter">
+        
+        {/* FIX: Integrated the auto_awesome spiritual icon layout badge cleanly into header viewports */}
+        <div className="relative z-10 px-gutter flex flex-col items-center">
+          <div className="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center border border-primary/20 shadow-sm mb-4">
+            <span className="material-symbols-outlined text-2xl text-primary" style={{fontVariationSettings: "'FILL' 1"}}>auto_awesome</span>
+          </div>
           <h1 className="text-4xl md:text-5xl font-serif text-primary font-bold mb-3">Our Divine Services</h1>
-          <p className="text-lg text-on-surface-variant font-medium">(మా సేవలు)</p>
-          <div className="h-0.5 w-16 bg-secondary mx-auto mt-4 opacity-50"></div>
+          <div className="h-0.5 w-16 bg-secondary mx-auto mt-2 opacity-50"></div>
         </div>
       </section>
 
       {/* --- CRITICAL CRADLE WRAPPER --- */}
-      {/* This relative parent acts as the track limit. The sticky action bar will never leave this container context. */}
       <div className="relative flex-grow flex flex-col w-full">
         
         {/* Accordion List Container */}
@@ -176,7 +179,7 @@ export default function ServicesPage() {
                   <div className="flex flex-col gap-1 pr-4">
                     <div className="flex items-center gap-3">
                       <span className="text-xs font-bold text-primary bg-primary/5 px-2.5 py-0.5 rounded-md uppercase tracking-wider">
-                        {category.teluguTitle}
+                        {category.englishTag}
                       </span>
                     </div>
                     <h3 className="font-serif font-bold text-xl md:text-2xl text-on-surface group-hover:text-primary transition-colors mt-1">
@@ -218,7 +221,6 @@ export default function ServicesPage() {
         </section>
 
         {/* --- PERFECT STICKY-BOTTOM CONTAINER --- */}
-        {/* Displays on page load instantly at window bottom and elegantly stops tracking at the absolute edge of your accordion wrapper block */}
         <div className="sticky bottom-0 w-full bg-surface/95 backdrop-blur-md border-t border-outline-variant/40 shadow-[0_-10px_30px_rgba(139,0,0,0.08)] z-40 animate-[fadeIn_0.5s_ease-out] mt-auto">
           <div className="max-w-4xl mx-auto px-gutter py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
             
@@ -246,7 +248,7 @@ export default function ServicesPage() {
           </div>
         </div>
 
-      </div> {/* --- END OF CRADLE WRAPPER --- */}
+      </div>
 
     </div>
   );
