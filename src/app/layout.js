@@ -3,8 +3,8 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer"; 
 
 export const metadata = {
-  title: "శ్రీ లక్ష్మీదేవి జ్యోతిషాలయం | Sri Lakshmi Devi Jyothishalayam",
-  description: "Expert Astrology, Vastu, and Horoscope Consultations in Hyderabad.",
+  title: "Sri Lakshmi Devi Jyothishalayam",
+  description: "Expert Astrology, Vastu, and Horoscope Consultations",
 };
 
 export default function RootLayout({ children }) {
