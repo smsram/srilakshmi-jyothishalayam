@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 export const metadata = {
   metadataBase: new URL("https://srilakshmidevijyothishalayam.com"),
   title: {
-    default: "Sri Lakshmi Devi Jyothishalayam | Authentic Vedic Astrology",
+    default: "Sri Lakshmi Devi Jyothishalayam",
     template: "%s | Sri Lakshmi Devi Jyothishalayam"
   },
   description: "Accurate Jathakam analysis, Marriage matching compatibility, and Vastu consultations by expert South Indian astrologers.",
