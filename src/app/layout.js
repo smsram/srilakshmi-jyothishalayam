@@ -35,7 +35,7 @@ export const metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "Sri Lakshmi Devi Jyothishalayam | Ancient Vedic Wisdom",
+    title: "Sri Lakshmi Devi Jyothishalayam",
     description: "Accurate Jathakam, Marriage Matching, and Vastu Consultations by Expert South Indian Astrologers.",
     url: "https://srilakshmidevijyothishalayam.com",
     siteName: "Sri Lakshmi Devi Jyothishalayam",
