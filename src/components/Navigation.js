@@ -41,11 +41,15 @@ export default function Navigation() {
       <header className="sticky top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-outline-variant/30 shadow-sm animate-[fadeIn_0.5s_ease-out]">
         <div className="max-w-6xl mx-auto px-gutter h-20 flex justify-between items-center">
           
-          {/* English Styled Brand Logo Header */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" className="text-primary group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
-              <path d="M12 2 4 7v2h16V7l-8-5zm-1 9h2v6h-2v-6zm-4 0h2v6H7v-6zm8 0h2v6h-2v-6zM3 20h18v2H3v-2z"/>
-            </svg>
+          {/* Brand Logo Header with local /home-section.jpg thumbnail */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-full overflow-hidden border border-primary/20 shadow-sm shrink-0 group-hover:scale-105 transition-transform duration-300">
+              <img 
+                src="/about-section.jpg" 
+                alt="Sri Lakshmi Devi Jyothishalayam Logo" 
+                className="w-full h-full object-cover select-none pointer-events-none"
+              />
+            </div>
             <h1 className="font-serif text-lg md:text-xl lg:text-2xl text-primary font-bold tracking-tight group-hover:text-primary/80 transition-colors uppercase">
               Sri Lakshmi Devi
             </h1>
@@ -62,7 +66,7 @@ export default function Navigation() {
                   className={`font-semibold transition-all relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 ${
                     isActive 
                       ? "text-primary after:w-full after:bg-primary" 
-                      : "text-on-surface-variant hover:text-primary after:w-0 hover:after:w-full after:bg-primary"
+                      : "text-on-surface-variant hover:text-primary_after:w-0 hover:after:w-full after:bg-primary"
                   }`}
                 >
                   {link.name}
@@ -70,7 +74,7 @@ export default function Navigation() {
               );
             })}
             
-            {/* Desktop Action: Direct Call Button replaced WhatsApp */}
+            {/* Desktop Action: Direct Call Button */}
             <a 
               href={`tel:${CONTACT_INFO?.phoneRaw || "+919876543210"}`} 
               className="ml-4 flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-lg font-bold hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group shadow-sm"

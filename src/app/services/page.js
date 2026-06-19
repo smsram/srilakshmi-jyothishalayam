@@ -1,26 +1,32 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { CONTACT_INFO } from "../../utils/constants";
 
-// Native Chevron Down SVG
 const ChevronDownSVG = ({ className = "w-6 h-6" }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="m6 9 6 6 6-6"/>
   </svg>
 );
 
-export default function ServicesPage() {
+function ServicesContent() {
+  const searchParams = useSearchParams();
+  const targetId = searchParams.get('open');
+  
   const [openSections, setOpenSections] = useState({
-    jathakam: true,
+    love: false,
+    health: false,
     marriage: false,
-    vastu: false,
-    muhurtham: false,
+    children: false,
+    finance: false,
     career: false,
     remedies: false,
+    vastu: false,
   });
 
   const sectionsRef = useRef([]);
+  const accordionRefs = useRef({}); 
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,6 +47,29 @@ export default function ServicesPage() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (targetId && openSections[targetId] !== undefined) {
+      setOpenSections(prev => ({
+        ...prev,
+        [targetId]: true
+      }));
+
+      setTimeout(() => {
+        if (accordionRefs.current[targetId]) {
+          const elementPosition = accordionRefs.current[targetId].getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - 120;
+  
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, 150);
+    } else if (!targetId) {
+       setOpenSections(prev => ({ ...prev, love: true }));
+    }
+  }, [targetId]);
+
   const addToRefs = (el) => {
     if (el && !sectionsRef.current.includes(el)) {
       sectionsRef.current.push(el);
@@ -54,89 +83,102 @@ export default function ServicesPage() {
     }));
   };
 
+  // Expanded into 8 1:1 separate modules mapping directly to the cards
   const serviceCategories = [
     {
-      id: "jathakam",
-      title: "Jathakam Analysis",
-      englishTag: "Astrology",
-      summary: "Comprehensive natal chart mappings calculated to illuminate life paths, planetary dasha blocks, and future transitions.",
+      id: "love",
+      title: "Love Problems",
+      englishTag: "Relationships",
+      summary: "Expert guidance to resolve deep-seated misunderstandings, heal lingering emotional heartbreaks, and fortify partner commitments.",
+      image: "/Love Problems.jpg",
+      issues: ["Breakups and emotional detachments", "Partner communication breakdowns", "Unreciprocated feelings or affection shifts"],
       items: [
-        { name: "Life Predictions", desc: "Detailed breakdown of health, wealth, family longevity, and key milestones based on classical planetary positions." },
-        { name: "Graha Dosha Diagnosis", desc: "Identification of heavy planetary afflictions such as Shani Dhaiya, Rahu Mahadasha, or Sade Sati." },
-        { name: "Yearly Varshaphala", desc: "A tailored annual horoscope breakdown mapping the cosmic transits affecting you month-by-month." },
-        { name: "Janma Kundali Drafting", desc: "Precise mathematical calculations of planetary degrees based on your exact time and place of birth." },
-        { name: "Kujava & Rahu-Ketu Timelines", desc: "Specialized analysis of shadow planets and their direct evolutionary impacts on your current lifecycle." },
-        { name: "Astro-Diagnostics for Education", desc: "Evaluating the strength of the 4th and 5th house nodes to uncover optimized academic study fields." }
+        { name: "Venus Node Strengthening", desc: "Evaluating and boosting your 5th and 7th houses to clear planetary alignment blocks affecting love fields." },
+        { name: "Emotional Compatibility Mappings", desc: "Analyzing planetary placements to locate underlying personality friction points between partners." }
+      ]
+    },
+    {
+      id: "health",
+      title: "Health Problems",
+      englishTag: "Wellness",
+      summary: "Vedic astrological tracking and remediation designed to isolate underlying energy imbalances and support physical wellness.",
+      image: "/Health Problems.jpg",
+      issues: ["Chronic elements lacking a medical cause", "Mental anxiety and emotional restlessness", "Periods of low energy and heavy physical exhaustion"],
+      items: [
+        { name: "6th House Node Diagnosis", desc: "Detailed breakdown of the primary health sector houses to trace planetary transition windows." },
+        { name: "Mantra Energy Sound Therapy", desc: "Tailored sonic vibrations used exclusively to stabilize erratic mental or physical fields cleanly." }
       ]
     },
     {
       id: "marriage",
-      title: "Marriage & Relationships",
-      englishTag: "Compatibility",
-      summary: "Traditional compatibility analyses performed to smooth relationships and ensure marital longevity.",
+      title: "Marriage Problems",
+      englishTag: "Matrimony",
+      summary: "Overcome long-term marital conflicts, constant family circle disputes, and timing block delays in fixing wedding dates.",
+      image: "/Marriage Problems.jpg",
+      issues: ["Continuous disagreements and friction at home", "Unreasonable delays in finalize wedding contracts", "Inter-familial integration blockages"],
       items: [
-        { name: "Ashtakoota Milan Matching", desc: "Rigorous 36-point Guna check examining mental temperament, health, and mutual spiritual alignment." },
-        { name: "Kuja Dosha Check", desc: "Specialized analysis of Mars placements to detect Manglik afflictions and suggest neutralization remedies." },
-        { name: "Relationship Conflict Resolution", desc: "Planetary remediation pathways to restore peaceful dialogue and mutual understanding within marriages." },
-        { name: "Delay in Marriage Analysis", desc: "Evaluating 7th house blockages or Saturn constraints to understand and bypass timing friction." },
-        { name: "Nadi Dosha Neutralization", desc: "An advanced check targeting physiological and genetic compatibility points to safeguard future children." },
-        { name: "Vivaha Bandham Protection", desc: "Auspicious planetary strengthening techniques designed to shield existing relationships from evil eyes." }
+        { name: "7th House Blockage Clearances", desc: "Isolating constraints from heavy transit nodes like Saturn or Rahu over the primary union grid." },
+        { name: "Manglik/Kuja Dosha Balancing", desc: "Dynamic behavioral updates and ritual offsets designed to neutralize heavy Mars orientations safely." }
       ]
     },
     {
-      id: "vastu",
-      title: "Vastu Shastra",
-      englishTag: "Vastu",
-      summary: "Structural geometric evaluations mapping architectural matrices to natural elemental laws.",
+      id: "children",
+      title: "Children Concerns",
+      englishTag: "Family",
+      summary: "Strategic solutions for improving children's learning focus, academic retention, behavioral paths, and future prosperity blueprints.",
+      image: "/Children Concerns.jpg",
+      issues: ["Sudden lack of concentration in education", "Behavioral fluctuations and stubborn shifts", "Anxiety regarding career field selection layouts"],
       items: [
-        { name: "Residential Vastu Evaluation", desc: "Room-by-room checking for individual apartments, villas, and kitchens to attract peaceful energy." },
-        { name: "Commercial & Business Layouts", desc: "Optimizing factories, retail storefronts, and office orientations to remove growth blocks." },
-        { name: "Astro-Vastu Integration", desc: "A premium sync matching your personal horoscope strengths directly to your home's entry vectors." },
-        { name: "Plot Shape & Soil Selection", desc: "Pre-purchase evaluation of land geometries, slope dynamics, and magnetic axis frequencies." },
-        { name: "Vastu Panchamahabhuta Balance", desc: "Advanced rectifications aligning the five core elements (Water, Fire, Earth, Air, Space) inside structural maps." },
-        { name: "Remedial Vastu Without Demolition", desc: "Innovative use of energy color models, copper wires, and pyramid placement structures to bypass physical changes." }
+        { name: "5th House Intelligence Check", desc: "Evaluating children's primary chart houses to locate ideal, high-merit educational fields." },
+        { name: "Focus Optimization Remedies", desc: "Simple environmental alignments and color modulations to stabilize study habits." }
       ]
     },
     {
-      id: "muhurtham",
-      title: "Muhurtham Fixing",
-      englishTag: "Timings",
-      summary: "Mathematical identification of auspicious planetary windows to guarantee success for key milestones.",
+      id: "finance",
+      title: "Financial Hurdles",
+      englishTag: "Wealth",
+      summary: "Targeted remedial tracking to break free from heavy debts, unlock unrecoverable capital resources, and maintain consistent cash flows.",
+      image: "/Financial Hurdles.jpg",
+      issues: ["Capital trapped in failed operations or bad investments", "Inability to break free from loan patterns", "Sudden drops in commercial influxes"],
       items: [
-        { name: "Vivah (Marriage) Muhurtham", desc: "Fixing cosmic windows free of structural doshas to protect the couple's bond." },
-        { name: "Grihapravesham (House Warming)", desc: "Auspicious timing calculations for entry into new properties to unlock family prosperity." },
-        { name: "Business & Vehicle Launches", desc: "Timing commercial setups or capital asset investments during high planetary strength windows." },
-        { name: "Akshara Abhyasam Windows", desc: "Calculating ideal, high-merit lunar days for introducing infants to reading and writing matrices cleanly." },
-        { name: "Namakarana & Upanayanam Time", desc: "Calculating traditional planetary alignments for naming ceremonies and sacred thread initiations." },
-        { name: "Auspicious Travel & Signing", desc: "Selecting high-yield solar hours for signing legal contracts or initiating overseas journeys." }
+        { name: "Dhanya/2nd House Accumulation Mappings", desc: "Analyzing asset storage houses to repair systemic block leaks in revenue generation charts." },
+        { name: "Lakshmi Node Consecrations", desc: "Strategic configurations meant to anchor positive prosperity forces cleanly in your life path." }
       ]
     },
     {
       id: "career",
-      title: "Career & Financial Stability",
-      englishTag: "Prosperity",
-      summary: "Stars mapping designed to maximize financial opportunities and identify peak professional paths.",
+      title: "Job & Career Growth",
+      englishTag: "Profession",
+      summary: "Secure stable long-term employment, resolve workplace friction blocks, and handle critical corporate transitions smoothly.",
+      image: "/Job & Career Growth.jpg",
+      issues: ["Repeatedly bypassed for expected promotions", "Workplace political friction or unstable employment", "Anxiety regarding structural shifting blocks"],
       items: [
-        { name: "Job Promotion Alignments", desc: "Pinpointing transit periods highly favorable for career shifts or competitive promotions." },
-        { name: "Business Venture Evaluation", desc: "Determining if individual configurations favor partnerships or standalone corporate operations." },
-        { name: "Debt Remediation Strategy", desc: "Spiritual and cosmic guidance intended to liberate assets from continuous loans or trapped funds." },
-        { name: "Stock Market & Trading Analysis", desc: "Analyzing the 5th and 11th house strengths to decipher individual risk profiles for financial instruments." },
-        { name: "Foreign Placement Opportunities", desc: "Evaluating 12th house alignments to forecast immigration timelines and international career paths." },
-        { name: "Ancestral Property Recovery", desc: "Planetary transit calculations focused on minimizing litigation and unblocking family inheritances." }
+        { name: "10th House Authority Activation", desc: "Strengthening your professional and social impact nodes to trigger high visibility across leadership." },
+        { name: "Immigration & Foreign Placement Timelines", desc: "Tracking 12th house transits to trace highly favorable international movement opportunities." }
       ]
     },
     {
       id: "remedies",
-      title: "Remedies & Energized Gems",
-      englishTag: "Protection",
-      summary: "Spiritual shields engineered to clear energetic hurdles and pacify malefic planetary transits.",
+      title: "Negative Energy Removal",
+      englishTag: "Purification",
+      summary: "Clear heavy unseen evil eyes, domestic property hexes, and psychological roadblocks through protective Vedic shielding structures.",
+      image: "/Negative Energy Removal.jpg",
+      issues: ["Sudden, unexplained structural domestic jank", "Feeling heavy atmospheres or unseen friction at home", "Continuous bad luck across business paths"],
       items: [
-        { name: "Gemstone Selection (Ratnalu)", desc: "Prescribing authentic, pure gemstones chosen exclusively to fortify weaker benefic planets." },
-        { name: "Energized Rudraksha Mapping", desc: "Guidance on wearing natural, premium Mukhi Rudrakshas for mental clarity and health protection." },
-        { name: "Parihara Poojas & Homams", desc: "Prescribing specific Vedic fire configurations to nullify deep ancestral or transit blockades." },
-        { name: "Yantra Installation Layouts", desc: "Designing consecrated geometric metal plates to channel structural protection fields into home environments." },
-        { name: "Mantra Japa Recommendations", desc: "Custom auditory sound frequency paths tailored to steady mental wavelengths against daily anxiety." },
-        { name: "Navagraha Shanti Balancing", desc: "Custom behavioral and offering frameworks designed to stabilize conflicting dual planetary fields." }
+        { name: "Karpura Ritual Clearing Models", desc: "Using high-frequency burning materials to break up heavy energetic patterns inside spaces." },
+        { name: "Protective Kavach Formations", desc: "Setting up custom protection fields to guard paths against hostile external intentions." }
+      ]
+    },
+    {
+      id: "relationship",
+      title: "Relationship Friction",
+      englishTag: "Harmony",
+      summary: "Re-establish deep domestic balance, refine partner dialogues, and resolve long-standing extended relative misunderstandings peacefully.",
+      image: "/Relationship Friction.jpg",
+      issues: ["Persistent arguments between close family members", "Misunderstandings with relatives affecting business", "Lack of peace and mutual trust at home"],
+      items: [
+        { name: "4th House Peace Mappings", desc: "Evaluating the core structural grid of domestic happiness to clear transit afflictions." },
+        { name: "Srinivasa Harmony Alignments", desc: "Behavioral adjustments and chart offerings built exclusively to return gentle energy back to interactions." }
       ]
     }
   ];
@@ -147,8 +189,6 @@ export default function ServicesPage() {
       {/* Page Title Section */}
       <section className="relative py-16 bg-surface-container-low border-b border-outline-variant/30 flex flex-col items-center justify-center text-center animate-[fadeIn_0.5s_ease-out]">
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none sri-chakra-bg"></div>
-        
-        {/* FIX: Integrated the auto_awesome spiritual icon layout badge cleanly into header viewports */}
         <div className="relative z-10 px-gutter flex flex-col items-center">
           <div className="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center border border-primary/20 shadow-sm mb-4">
             <span className="material-symbols-outlined text-2xl text-primary" style={{fontVariationSettings: "'FILL' 1"}}>auto_awesome</span>
@@ -168,7 +208,10 @@ export default function ServicesPage() {
             return (
               <div 
                 key={category.id}
-                ref={addToRefs}
+                ref={(el) => {
+                  addToRefs(el);
+                  accordionRefs.current[category.id] = el;
+                }}
                 className="reveal-on-scroll bg-surface border border-outline-variant/40 rounded-2xl shadow-sm overflow-hidden transition-all duration-500 hover:border-secondary/40"
               >
                 {/* Dropdown Header Trigger */}
@@ -196,22 +239,50 @@ export default function ServicesPage() {
 
                 {/* Collapsible Content Area */}
                 <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                  isOpen ? "max-h-[1500px] border-t border-outline-variant/20" : "max-h-0"
+                  isOpen ? "max-h-[2500px] border-t border-outline-variant/20" : "max-h-0"
                 }`}>
-                  <div className="p-6 md:p-8 bg-background/30 space-y-6">
-                    <p className="text-on-surface-variant text-sm md:text-base font-medium italic border-l-2 border-secondary/60 pl-4 mb-4">
-                      {category.summary}
-                    </p>
+                  <div className="p-6 md:p-8 bg-background/30 flex flex-col gap-6">
                     
-                    {/* Detailed inner bullet grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                      {category.items.map((item, i) => (
-                        <div key={i} className="bg-surface rounded-xl p-5 border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
-                          <h4 className="font-serif font-bold text-lg text-primary mb-1">{item.name}</h4>
-                          <p className="text-on-surface-variant text-xs md:text-sm leading-relaxed">{item.desc}</p>
-                        </div>
-                      ))}
+                    <div className="flex flex-col md:flex-row gap-6">
+                      {/* Left Visual Support Image */}
+                      <div className="w-full md:w-1/3 aspect-[4/3] md:aspect-auto rounded-xl overflow-hidden shadow-sm shrink-0 border border-outline-variant/30 relative max-h-48">
+                        <img src={category.image} alt={category.title} className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                      </div>
+                      
+                      {/* Right Text / Issues Map */}
+                      <div className="w-full md:w-2/3 flex flex-col justify-center">
+                        <p className="text-on-surface-variant text-sm md:text-base font-medium italic border-l-2 border-secondary/60 pl-4 mb-4">
+                          {category.summary}
+                        </p>
+                        
+                        <h5 className="text-xs font-bold uppercase tracking-wider text-primary mb-2">Common Issues Addressed:</h5>
+                        <ul className="space-y-1.5">
+                          {category.issues.map((issue, idx) => (
+                            <li key={idx} className="flex items-start gap-2 text-sm text-on-surface-variant">
+                              <span className="material-symbols-outlined text-secondary text-[16px] mt-0.5">check_circle</span>
+                              <span className="leading-relaxed">{issue}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
+
+                    <div className="w-full h-px bg-outline-variant/30"></div>
+                    
+                    {/* Detailed inner parameters grid */}
+                    <div>
+                      <h5 className="text-xs font-bold uppercase tracking-wider text-primary mb-3">Detailed Consultation Parameters:</h5>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {category.items.map((item, i) => (
+                          <div key={i} className="bg-surface rounded-xl p-5 border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
+                            <h4 className="font-serif font-bold text-lg text-primary mb-1">{item.name}</h4>
+                            <p className="text-on-surface-variant text-xs md:text-sm leading-relaxed">{item.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
@@ -249,7 +320,14 @@ export default function ServicesPage() {
         </div>
 
       </div>
-
     </div>
+  );
+}
+
+export default function ServicesPageWrapper() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center text-primary font-serif">Loading services...</div>}>
+      <ServicesContent />
+    </Suspense>
   );
 }

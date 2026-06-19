@@ -54,15 +54,16 @@ export default function Home() {
     }
   };
 
+  // 1:1 Target ID Mappings
   const comprehensiveServices = [
-    { title: "Love Problems", desc: "Expert guidance to resolve misunderstandings, heal heartbreaks, and strengthen bonds.", path: "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" },
-    { title: "Health Problems", desc: "Vedic astrological diagnosis and remedies to clear energy imbalances and restore health.", path: "M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z" },
-    { title: "Marriage Problems", desc: "Overcome marital conflicts, family disputes, and delays in fixing marriage dates.", path: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z" },
-    { title: "Children Concerns", desc: "Solutions for children's focus in education, behavioral growth, and futures.", path: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" },
-    { title: "Financial Hurdles", desc: "Remedies to resolve debts, recover trapped funds, and ensure steady wealth influx.", path: "M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" },
-    { title: "Job & Career Growth", desc: "Secure stable employment, remove promotional blocks, and handle workplace shifts.", path: "M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" },
-    { title: "Negative Energy Removal", desc: "Clear unseen evil eyes, home hexes, and psychological blocks through protection shielding.", path: "M13 3 4 14h7v8l9-11h-7z" },
-    { title: "Relationship Friction", desc: "Improve family harmony, partner bonding, and relative understanding smoothly.", path: "M16 11V5h6v6h-6zm-2 2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h10v6H4v2h10c1.1 0 2-.9 2-2v-6z" }
+    { title: "Love Problems", targetId: "love", desc: "Expert guidance to resolve misunderstandings, heal heartbreaks, and strengthen bonds.", image: "/Love Problems.jpg" },
+    { title: "Health Problems", targetId: "health", desc: "Vedic astrological diagnosis and remedies to clear energy imbalances and restore health.", image: "/Health Problems.jpg" },
+    { title: "Marriage Problems", targetId: "marriage", desc: "Overcome marital conflicts, family disputes, and delays in fixing marriage dates.", image: "/Marriage Problems.jpg" },
+    { title: "Children Concerns", targetId: "children", desc: "Solutions for children's focus in education, behavioral growth, and futures.", image: "/Children Concerns.jpg" },
+    { title: "Financial Hurdles", targetId: "finance", desc: "Remedies to resolve debts, recover trapped funds, and ensure steady wealth influx.", image: "/Financial Hurdles.jpg" },
+    { title: "Job & Career Growth", targetId: "career", desc: "Secure stable employment, remove promotional blocks, and handle workplace shifts.", image: "/Job & Career Growth.jpg" },
+    { title: "Negative Energy Removal", targetId: "remedies", desc: "Clear unseen evil eyes, home hexes, and psychological blocks through protection shielding.", image: "/Negative Energy Removal.jpg" },
+    { title: "Relationship Friction", targetId: "relationship", desc: "Improve family harmony, partner bonding, and relative understanding smoothly.", image: "/Relationship Friction.jpg" }
   ];
 
   return (
@@ -128,43 +129,62 @@ export default function Home() {
         <div className="mandala-divider"></div>
       </div>
 
-      {/* 3. Comprehensive Services Grid */}
+      {/* 3. Grid Section */}
       <section className="px-gutter py-12">
         <div ref={addToRefs} className="reveal-on-scroll max-w-6xl mx-auto">
           <h2 className="font-serif text-3xl md:text-4xl text-primary text-center font-bold mb-4 tracking-tight">Vedic Astrology Solutions</h2>
-          <p className="text-center text-on-surface-variant mb-12 max-w-xl mx-auto text-sm md:text-base">Click on any card area below to view full details on our structured consultation page.</p>
+          <p className="text-center text-on-surface-variant mb-12 max-w-xl mx-auto text-sm md:text-base">Explore our highly specialized consultations. Click on any section below to view full details.</p>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {comprehensiveServices.map((service, idx) => (
               <Link 
                 key={idx} 
-                href="/services" 
-                className="bg-surface border border-outline-variant/30 rounded-2xl p-6 shadow-sm relative overflow-hidden flex flex-col group hover:border-secondary/80 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+                href={`/services?open=${service.targetId}`} 
+                className="bg-surface border border-outline-variant/30 rounded-2xl shadow-sm relative overflow-hidden flex flex-col group hover:border-secondary/50 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 cursor-pointer"
               >
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                
-                <span className="absolute top-4 right-6 font-serif text-3xl font-bold text-outline-variant/20 select-none pointer-events-none group-hover:text-secondary/20 transition-colors">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-
-                <div className="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center mb-4 transition-colors duration-500 group-hover:bg-primary">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-primary transition-colors duration-500 group-hover:text-white"><path d={service.path}/></svg>
+                <div className="relative h-44 w-full overflow-hidden bg-surface-variant/30">
+                  <img 
+                    src={service.image} 
+                    alt={service.title} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-black/40"></div>
+                  
+                  <div className="absolute top-3 right-3 bg-black/30 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full">
+                    <span className="font-serif text-sm font-bold text-white select-none pointer-events-none">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                  </div>
                 </div>
 
-                <h4 className="font-serif font-bold text-2xl text-on-surface mb-2 leading-tight">{service.title}</h4>
-                <p className="text-on-surface-variant text-sm mb-6 leading-relaxed flex-grow">{service.desc}</p>
-                
-                <span className="text-secondary text-xs flex items-center gap-1.5 font-bold mt-auto group/btn">
-                  <span className="material-symbols-outlined text-[16px]">visibility</span>
-                  <span className="relative text-on-surface group-hover/btn:text-secondary transition-colors">
-                    Check in Services
-                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-secondary group-hover/btn:w-full transition-all duration-300"></span>
+                <div className="p-6 flex flex-col flex-grow">
+                  <h4 className="font-serif font-bold text-xl text-on-surface mb-2 leading-tight group-hover:text-primary transition-colors duration-300">
+                    {service.title}
+                  </h4>
+                  <p className="text-on-surface-variant text-sm mb-6 leading-relaxed flex-grow">
+                    {service.desc}
+                  </p>
+                  
+                  <span className="text-secondary text-xs flex items-center gap-1.5 font-bold mt-auto group/btn">
+                    <span className="material-symbols-outlined text-[16px]">visibility</span>
+                    <span className="relative text-on-surface group-hover/btn:text-secondary transition-colors">
+                      Check in Services
+                      <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-secondary group-hover/btn:w-full transition-all duration-300"></span>
+                    </span>
+                    <ArrowRightSVG className="w-3 h-3 text-secondary transform translate-x-0 opacity-0 group-hover/btn:translate-x-1 group-hover/btn:opacity-100 transition-all duration-300" />
                   </span>
-                  <ArrowRightSVG className="w-3 h-3 text-secondary transform translate-x-0 opacity-0 group-hover/btn:translate-x-1 group-hover/btn:opacity-100 transition-all duration-300" />
-                </span>
+                </div>
               </Link>
             ))}
           </div>
+          
+          <div className="w-full flex justify-center mt-12">
+            <Link href="/services" className="inline-flex items-center gap-2 bg-primary/10 text-primary border border-primary/20 px-8 py-3.5 rounded-xl font-bold hover:bg-primary hover:text-white transition-all duration-300 shadow-sm">
+              Explore All Detailed Services
+              <span className="material-symbols-outlined text-lg">arrow_forward</span>
+            </Link>
+          </div>
+          
         </div>
       </section>
 
@@ -181,12 +201,12 @@ export default function Home() {
             </Link>
           </div>
           <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
-            <Link href="/services" className="bg-surface rounded-2xl p-8 shadow-md border border-secondary/20 group hover:border-primary transition-all duration-300 flex flex-col">
+            <Link href="/services?open=vastu" className="bg-surface rounded-2xl p-8 shadow-md border border-secondary/20 group hover:border-primary transition-all duration-300 flex flex-col">
               <span className="material-symbols-outlined text-4xl text-secondary mb-4 group-hover:text-primary transition-colors">home</span>
               <h4 className="font-serif font-bold text-2xl text-on-surface mb-2">Residential Vastu</h4>
               <p className="text-on-surface-variant text-sm leading-relaxed">Ensure dynamic structural equilibrium for apartments and custom-built individual houses.</p>
             </Link>
-            <Link href="/services" className="bg-surface rounded-2xl p-8 shadow-md border border-secondary/20 group hover:border-primary transition-all duration-300 flex flex-col">
+            <Link href="/services?open=vastu" className="bg-surface rounded-2xl p-8 shadow-md border border-secondary/20 group hover:border-primary transition-all duration-300 flex flex-col">
               <span className="material-symbols-outlined text-4xl text-secondary mb-4 group-hover:text-primary transition-colors">storefront</span>
               <h4 className="font-serif font-bold text-2xl text-on-surface mb-2">Commercial Vastu</h4>
               <p className="text-on-surface-variant text-sm leading-relaxed">Balance complex production floors and commercial showrooms to maximize financial flow.</p>
@@ -213,7 +233,6 @@ export default function Home() {
               <p className="absolute bottom-6 left-6 text-white font-serif font-bold text-xl">Parihara Poojas</p>
             </div>
             <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-sm group bg-surface-variant/30">
-              {/* FIX: Updated the source extension to .png and localized the tag to match your Rasi Phalalu image chart */}
               <img src="/image3.jpg" alt="Rasi Phalalu Transits" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
               <p className="absolute bottom-6 left-6 text-white font-serif font-bold text-xl">Rasi Phalalu</p>
